@@ -3,6 +3,7 @@ package com.tourguide.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.tourguide.model.Attraction;
 import com.tourguide.model.Location;
@@ -13,6 +14,7 @@ import com.tourguide.proxies.MicroServiceGpsUtilProxy;
 
 import rewardCentral.RewardCentral;
 
+@Service
 public class RewardsService {
 
 	private static final double STATUTE_MILES_PER_NAUTICAL_MILE = 1.15077945;

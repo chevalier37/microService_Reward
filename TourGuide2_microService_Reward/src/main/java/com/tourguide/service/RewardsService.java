@@ -13,6 +13,8 @@ import com.tourguide.model.VisitedLocation;
 import com.tourguide.proxies.MicroServiceGpsUtilProxy;
 
 import rewardCentral.RewardCentral;
+import tripPricer.Provider;
+import tripPricer.TripPricer;
 
 @Service
 public class RewardsService {
@@ -23,6 +25,8 @@ public class RewardsService {
 	private int defaultProximityBuffer = 10;
 	private int proximityBuffer = defaultProximityBuffer;
 	private int attractionProximityRange = 200;
+	private static final String tripPricerApiKey = "test-server-api-key";
+	private final TripPricer tripPricer = new TripPricer();
 
 	@Autowired
 	RewardCentral rewardsCentral;
@@ -42,7 +46,6 @@ public class RewardsService {
 		List<VisitedLocation> userLocations = user.getVisitedLocations();
 
 		List<Attraction> attractions = gpsUtilProxy.getAttractions();
-
 		for (VisitedLocation visitedLocation : userLocations) {
 			for (Attraction attraction : attractions) {
 				if (user.getUserRewards().stream()
@@ -54,6 +57,15 @@ public class RewardsService {
 				}
 			}
 		}
+	}
+
+	public List<Provider> getTripDeals(User user) {
+		int cumulatativeRewardPoints = user.getUserRewards().stream().mapToInt(i -> i.getRewardPoints()).sum();
+		List<Provider> providers = tripPricer.getPrice(tripPricerApiKey, user.getUserId(),
+				user.getUserPreferences().getNumberOfAdults(), user.getUserPreferences().getNumberOfChildren(),
+				user.getUserPreferences().getTripDuration(), cumulatativeRewardPoints);
+		user.setTripDeals(providers); // renvoyer à micro-service-user
+		return providers;
 	}
 
 	public boolean isWithinAttractionProximity(Attraction attraction, Location location) {

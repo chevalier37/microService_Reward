@@ -20,11 +20,8 @@ public class RewardsService {
 
 	private static final double STATUTE_MILES_PER_NAUTICAL_MILE = 1.15077945;
 
-	// proximity in miles
 	private int defaultProximityBuffer = 10;
 	private int proximityBuffer = defaultProximityBuffer;
-	private int attractionProximityRange = 200;
-	private static final String tripPricerApiKey = "test-server-api-key";
 
 	@Autowired
 	RewardCentral rewardsCentral;
@@ -34,14 +31,6 @@ public class RewardsService {
 
 	@Autowired
 	MicroServiceUserProxy userProxy;
-
-	public void setProximityBuffer(int proximityBuffer) {
-		this.proximityBuffer = proximityBuffer;
-	}
-
-	public void setDefaultProximityBuffer() {
-		proximityBuffer = defaultProximityBuffer;
-	}
 
 	public void calculateRewards(User user) {
 		List<VisitedLocation> userLocations = user.getVisitedLocations();
@@ -60,20 +49,11 @@ public class RewardsService {
 		}
 	}
 
-	public boolean isWithinAttractionProximity(Attraction attraction, Location location) {
-		return getDistance(attraction, location) > attractionProximityRange ? false : true;
-	}
-
-	// created by JB
-	public double getDistanceMiles(Attraction attraction, Location location) {
-		return getDistance(attraction, location);
-	}
-
-	private boolean nearAttraction(VisitedLocation visitedLocation, Attraction attraction) {
+	public boolean nearAttraction(VisitedLocation visitedLocation, Attraction attraction) {
 		return getDistance(attraction, visitedLocation.location) > proximityBuffer ? false : true;
 	}
 
-	private int getRewardPoints(Attraction attraction, User user) {
+	public int getRewardPoints(Attraction attraction, User user) {
 		return rewardsCentral.getAttractionRewardPoints(attraction.attractionId, user.getUserId());
 	}
 

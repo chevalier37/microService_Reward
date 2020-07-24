@@ -2,12 +2,11 @@ package com.tourguide.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tourguide.model.AttractionAndLocation;
 import com.tourguide.model.User;
+import com.tourguide.proxies.MicroServiceUserProxy;
 import com.tourguide.service.RewardsService;
 
 @RestController
@@ -16,18 +15,12 @@ public class RewardController {
 	@Autowired
 	RewardsService rewardsService;
 
-	@GetMapping("/isWithinAttractionProximity")
-	public boolean isWithinAttractionProximity(@RequestBody AttractionAndLocation request) {
-		return rewardsService.isWithinAttractionProximity(request.getAttraction(), request.getLocation());
-	}
+	@Autowired
+	MicroServiceUserProxy userProxy;
 
-	@GetMapping("/getDistanceMiles")
-	public double getDistanceMiles(@RequestBody AttractionAndLocation request) {
-		return rewardsService.getDistanceMiles(request.getAttraction(), request.getLocation());
-	}
-
-	@PostMapping("/calculateRewards")
-	public void calculateRewards(@RequestBody User user) {
+	@GetMapping("/calculateRewards/{userName}")
+	public void calculateRewards(@PathVariable("userName") String userName) {
+		User user = userProxy.getUser(userName);
 		rewardsService.calculateRewards(user);
 	}
 

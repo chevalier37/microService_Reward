@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.tourguide.model.Attraction;
@@ -36,6 +37,7 @@ public class RewardsService {
 	@Autowired
 	MicroServiceUserProxy userProxy;
 
+	@Async("asyncExecutor")
 	public void calculateRewards(User user) {
 		List<VisitedLocation> userLocations = user.getVisitedLocations();
 

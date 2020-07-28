@@ -2,6 +2,8 @@ package com.tourguide.service;
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,8 @@ public class RewardsService {
 
 	private int defaultProximityBuffer = 10;
 	private int proximityBuffer = defaultProximityBuffer;
+
+	private static final Logger logger = LogManager.getRootLogger();
 
 	@Autowired
 	RewardCentral rewardsCentral;
@@ -47,6 +51,8 @@ public class RewardsService {
 				}
 			}
 		}
+
+		userProxy.addUserReward(user.getUserName());
 	}
 
 	public boolean nearAttraction(VisitedLocation visitedLocation, Attraction attraction) {

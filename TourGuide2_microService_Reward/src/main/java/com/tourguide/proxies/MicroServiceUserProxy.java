@@ -14,4 +14,7 @@ public interface MicroServiceUserProxy {
 	@GetMapping("/getUser/{userName}")
 	User getUser(@PathVariable("userName") String userName);
 
+	@GetMapping("/addUserReward/{userName}")
+	void addUserReward(@PathVariable("userName") String userName);
+
 }

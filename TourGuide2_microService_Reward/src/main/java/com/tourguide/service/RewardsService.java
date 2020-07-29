@@ -40,7 +40,6 @@ public class RewardsService {
 	@Async("asyncExecutor")
 	public void calculateRewards(User user) {
 		List<VisitedLocation> userLocations = user.getVisitedLocations();
-
 		List<Attraction> attractions = gpsUtilProxy.getAttractions();
 		for (VisitedLocation visitedLocation : userLocations) {
 			for (Attraction attraction : attractions) {

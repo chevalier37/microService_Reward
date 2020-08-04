@@ -72,7 +72,12 @@
 	       <artifactId>com.RewardCentral</artifactId>  
 	       <version>1.0</version> 
 	      <scope>system</scope>
-	      <systemPath>${project.basedir}/libs/RewardCentral.jar</systemPath>
+	      <systemPath>${basedir}/lib/RewardCentral.jar</systemPath>
+		</dependency>
+				<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-loader</artifactId>
+		    <version>2.3.2.RELEASE</version>
 		</dependency>
 
 		<dependency>
@@ -146,11 +151,15 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+				    <includeSystemScope>true</includeSystemScope>
+				</configuration>
 				<executions>
 			        <execution>
 			            <id>build-info</id>
 			            <goals>
 			                <goal>build-info</goal>
+			                <goal>repackage</goal>
 			            </goals>
 			        </execution>
 			    </executions>

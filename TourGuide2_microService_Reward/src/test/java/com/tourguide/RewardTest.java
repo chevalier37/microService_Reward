@@ -31,6 +31,7 @@ public class RewardTest {
 		assertEquals(0, user.getUserRewards().size());
 	}
 
+	@Test
 	public void nearAttractionTest() {
 		User user = new User(UUID.randomUUID(), "jon", "000", "jon@tourGuide.com");
 		Attraction attraction = new Attraction("name", "city", "state", 20.00, 20.00);
@@ -38,6 +39,7 @@ public class RewardTest {
 		assertEquals(true, rewardsService.nearAttraction(visitedLocation, attraction));
 	}
 
+	@Test
 	public void getDistanceTest() {
 		Location loc1 = new Location(20.00, 20.00);
 		Location loc2 = new Location(20.00, 20.00);
@@ -45,6 +47,7 @@ public class RewardTest {
 		assertEquals(0.0, distance);
 	}
 
+	@Test
 	public void getRewardPointsTest() {
 		User user = new User(UUID.randomUUID(), "jon", "000", "jon@tourGuide.com");
 		Attraction attraction = new Attraction("name", "city", "state", 20.00, 20.00);

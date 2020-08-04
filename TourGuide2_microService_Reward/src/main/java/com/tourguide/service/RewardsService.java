@@ -52,8 +52,7 @@ public class RewardsService {
 				}
 			}
 		}
-
-		userProxy.addUserReward(user.getUserName());
+		userProxy.addUserReward(user.getUserName(), user.getUserRewards());
 	}
 
 	public boolean nearAttraction(VisitedLocation visitedLocation, Attraction attraction) {

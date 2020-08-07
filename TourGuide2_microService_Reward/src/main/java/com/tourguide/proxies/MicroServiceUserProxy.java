@@ -16,9 +16,9 @@ import com.tourguide.model.UserReward;
 @RibbonClient(name = "microservice-user")
 public interface MicroServiceUserProxy {
 
-	@GetMapping("/getUser/{userName}")
+	@GetMapping("user/getUser/{userName}")
 	User getUser(@PathVariable("userName") String userName);
 
-	@PutMapping("/addUserReward/{userName}")
+	@PutMapping("user/addUserReward/{userName}")
 	void addUserReward(@PathVariable("userName") String userName, @RequestBody List<UserReward> userRewars);
 }

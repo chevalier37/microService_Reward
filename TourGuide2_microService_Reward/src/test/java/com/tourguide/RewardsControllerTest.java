@@ -31,9 +31,8 @@ public class RewardsControllerTest {
 
 	@Test
 	public void get5NearbyAttractionsTest() throws Exception {
-		this.mockMvc.perform(
-				MockMvcRequestBuilders.get("/calculateRewards/internalUser1").param("userName", "internalUser1"))
-				.andDo(print()).andExpect(status().isOk());
+		this.mockMvc.perform(MockMvcRequestBuilders.get("/rewards/calculateRewards/internalUser1").param("userName",
+				"internalUser1")).andDo(print()).andExpect(status().isOk());
 	}
 
 }

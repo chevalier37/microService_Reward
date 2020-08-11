@@ -8,6 +8,7 @@ public class VisitedLocation {
 	public final UUID userId;
 	public final Location location;
 	public final Date timeVisited;
+	public int point;
 
 	public VisitedLocation(UUID userId, Location location, Date timeVisited) {
 		this.userId = userId;
